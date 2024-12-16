@@ -1,0 +1,46 @@
+.image-uploader {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.image-uploader h2 {
+    text-align: center;
+    color: #333;
+}
+
+.image-uploader form > div {
+    margin-bottom: 15px;
+}
+
+.image-uploader label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.image-uploader input[type="text"],
+.image-uploader input[type="number"],
+.image-uploader input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.image-uploader button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.image-uploader button:hover {
+    background-color: #0056b3;
+}
