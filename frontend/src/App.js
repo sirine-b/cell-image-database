@@ -1,22 +1,25 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ImageGallery from './components/ImageGallery';
-import ImageDetails from './components/ImageDetails';
-import Search from './components/Search';
-import Favourites from './components/Favourites';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
-
+import Register from './components/Register';
+import ImageGallery from './components/ImageGallery';
+import ImageUploader from './components/ImageUploader';
+import ReinitialiseTables from './components/ReinitialiseTables';
+import ImageDetails from './components/ImageDetails';
 function App() {
     return (
         <Router>
-            <Switch>
-                <Route path="/search" component={Search} />
-                <Route path="/favourites" component={Favourites} />
-                <Route path="/login" component={Login} />
-                <Route path="/images/:id" component={ImageDetails} />
-                <Route path="/" component={ImageGallery} />
-            </Switch>
+            <div className="App">
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/upload" element={<ImageUploader />} />
+                    <Route path="/" element={<ImageGallery />} />
+                    <Route path="/reinitialisetables" element={<ReinitialiseTables />}/>
+                    <Route path="/image/:id" element={<ImageDetails />} />
+                </Routes>
+            </div>
         </Router>
     );
 }
-
 export default App;

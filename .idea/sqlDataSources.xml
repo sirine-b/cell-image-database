@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="f0691797-02ac-48c0-ac72-4643e7c771fe" name="CellImageDatabase on local PostgreSQL Mapping">
+      <data-sources db="88fa20e7-5430-4119-8c5e-0abcd7fed8b1" />
+    </mapping>
+  </component>
+</project>
