@@ -244,6 +244,41 @@ app.get('/api/images/:id', async (req, res) => {
 //     }
 // });
 
+// Add image to favorites
+app.post('/api/favorites', async (req, res) => {
+    const { user_id, image_id } = req.body;
+
+    try {
+        await pool.query(
+            'INSERT INTO favorites (user_id, image_id) VALUES ($1, $2)',
+            [user_id, image_id]
+        );
+        res.status(201).send('Image added to favorites');
+    } catch (error) {
+        console.error('Error adding image to favorites:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+// Get user's favorite images
+app.get('/api/favorites/:user_id', async (req, res) => {
+    const { user_id } = req.params;
+
+    try {
+        const result = await pool.query(
+            `SELECT images.image_id, images.filepath, metadata.*
+            FROM favorites
+            JOIN images ON favorites.image_ =id images.image_id
+            JOIN metadata ON images.image_id = metadata.image_id
+            WHERE favorites.user_id = $1`,
+            [user_id]
+        );
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching favorite images:', error);
+        res.status(500).send('Server error');
+    }
+});
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

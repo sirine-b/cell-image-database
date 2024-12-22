@@ -19,6 +19,7 @@ function ImageGallery() {
             }
         };
 
+        // get user data
         const fetchUser = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/user');
@@ -56,21 +57,21 @@ function ImageGallery() {
                             <img
                                 src={`http://localhost:5000/${image.filepath}`}
                                 alt={image.filename}
-                                style={{ width: '20%', height: 'auto', cursor: 'pointer' }}
-                                onClick={() => handleImageClick(image.id)}
-                            />
-                            <div className="overlay">
-                                <p><strong>NBCI Classification:</strong> {image.ncbiclassification}</p>
-                                <p><strong>Species:</strong> {image.species}</p>
-                                <p><strong>Cellular Component:</strong> {image.cellularcomponent}</p>
-                                <p><strong>Biological Process:</strong> {image.biologicalprocess}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                                    style={{ width: '20%', height: 'auto', cursor: 'pointer' }}
+                                    onClick={() => handleImageClick(image.id)}
+                                    />
+                                    <div className="overlay">
+                                    <p><strong>NBCI Classification:</strong> {image.ncbiclassification}</p>
+                        <p><strong>Species:</strong> {image.species}</p>
+                <p><strong>Cellular Component:</strong> {image.cellularcomponent}</p>
+                <p><strong>Biological Process:</strong> {image.biologicalprocess}</p>
             </div>
         </div>
-    );
+    ))}
+</div>
+</div>
+</div>
+);
 }
 
 export default ImageGallery;
