@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
@@ -6,7 +7,6 @@ import ImageGallery from './components/ImageGallery';
 import ImageUploader from './components/ImageUploader';
 import ReinitialiseTables from './components/ReinitialiseTables';
 import ImageDetails from './components/ImageDetails';
-import Favorites from './components/Favorites';
 function App() {
     return (
         <Router>
@@ -18,10 +18,46 @@ function App() {
                     <Route path="/" element={<ImageGallery />} />
                     <Route path="/reinitialisetables" element={<ReinitialiseTables />}/>
                     <Route path="/image/:id" element={<ImageDetails />} />
-                    <Route path="/favorites" element={<Favorites />} />
                 </Routes>
             </div>
         </Router>
     );
+}
+export default App;*/
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import ImageGallery from './components/ImageGallery';
+import ImageUploader from './components/ImageUploader';
+import ReinitialiseTables from './components/ReinitialiseTables';
+import ImageDetails from './components/ImageDetails';
+import SearchBar from './components/SearchBar';
+import SearchResults from './components/SearchResults';
+import FavoritesPage from './components/FavoritesPage';
+
+function App() {
+    return (
+        <Router>
+            <div className="App">
+                <ConditionalSearchBar />
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/upload" element={<ImageUploader />} />
+                    <Route path="/" element={<ImageGallery />} />
+                    <Route path="/reinitialisetables" element={<ReinitialiseTables />}/>
+                    <Route path="/image/:id" element={<ImageDetails />} />
+                    <Route path="/search" element={<SearchResults />} />
+                    <Route path="/favorites" element={<FavoritesPage />} />
+                </Routes>
+            </div>
+        </Router>
+    );
+}
+
+function ConditionalSearchBar() {
+    const location = useLocation();
+    return (location.pathname === '/' || location.pathname === '/search') ? <SearchBar /> : null;
 }
 export default App;
