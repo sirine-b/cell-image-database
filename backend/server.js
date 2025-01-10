@@ -342,19 +342,19 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
         const filename = req.file.filename; // Get the filename of the uploaded file
 
         const {
-            ncbiclassification,
-            species,
-            cellularcomponent,
-            biologicalprocess,
-            shape,
-            imagingmod,
-            description,
-            licensing,
+            Category,
+            Species,
+            Cellular_Component,
+            Biological_Process,
+            Shape,
+            Imaging_Modality,
+            Description,
+            Licensing,
         } = req.body;
 
         const result = await pool.query(
-            'INSERT INTO images (filepath, ncbiclassification, species, cellularcomponent, biologicalprocess, shape, imagingmod, description, licensing) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id',
-            [req.file.path, ncbiclassification, species, cellularcomponent, biologicalprocess, shape, imagingmod, description, licensing]
+            'INSERT INTO images (filepath, Category, Species, Cellular_Component, Biological_Process, Shape, Imaging_Modality,Description, Licensing) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id',
+            [req.file.path, Category, Species, Cellular_Component, Biological_Process, Shape, Imaging_Modality,Description, Licensing]
         );
 
         res.status(201).json({ message: 'Image uploaded successfully', imageId: result.rows[0].id });
@@ -371,14 +371,14 @@ app.get('/api/search', async (req, res) => {
         const result = await pool.query(`
       SELECT * FROM images 
       WHERE 
-        ncbiclassification ILIKE $1 OR
-        species ILIKE $1 OR
-        cellularcomponent ILIKE $1 OR
-        biologicalprocess ILIKE $1 OR
-        shape ILIKE $1 OR
-        imagingmod ILIKE $1 OR
-        description ILIKE $1 OR
-        licensing ILIKE $1
+        Category ILIKE $1 OR
+        Species ILIKE $1 OR
+        Cellular_Component ILIKE $1 OR
+        Biological_Process ILIKE $1 OR
+        Shape ILIKE $1 OR
+        Imaging_Modality ILIKE $1 OR
+        Description ILIKE $1 OR
+        Licensing ILIKE $1
     `, [`%${query}%`]);
         res.json(result.rows);
     } catch (error) {
@@ -419,15 +419,15 @@ app.post('/api/reinitialisetables', async (req, res) => {
             CREATE TABLE images (
                                     id SERIAL PRIMARY KEY,
                                     filepath VARCHAR(255) NOT NULL,
-                                    ncbiclassification VARCHAR(255) NOT NULL,
-                                    species VARCHAR(255) NOT NULL,
-                                    cellularcomponent VARCHAR(255) NOT NULL,
-                                    biologicalprocess VARCHAR(255) NOT NULL,
-                                    shape VARCHAR(255) NOT NULL,
-                                    imagingmod VARCHAR(255) NOT NULL,
-                                    description VARCHAR(255),
-                                    licensing VARCHAR(255),
-                                    numbercells INTEGER 
+                                    Category VARCHAR(255) NOT NULL,
+                                    Species VARCHAR(255) NOT NULL,
+                                    Cellular_Component VARCHAR(255) NOT NULL,
+                                    Biological_Process VARCHAR(255) NOT NULL,
+                                    Shape VARCHAR(255) NOT NULL,
+                                    Imaging_Modality VARCHAR(255) NOT NULL,
+                                    Description VARCHAR(255),
+                                    Licensing VARCHAR(255),
+                                    Number_Cells INTEGER 
             )
         `);
 

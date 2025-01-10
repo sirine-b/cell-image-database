@@ -7,6 +7,7 @@ const FavoritesPage = () => {
     const [favorites, setFavorites] = useState([]);
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const fetchFavorites = async () => {
             const token = localStorage.getItem('token');
@@ -39,6 +40,10 @@ const FavoritesPage = () => {
         }
     };
 
+    const handleImageClick = (imageId) => {
+        navigate(`/image/${imageId}`);
+    };
+
     return (
         <div className="image-gallery">
             <header className="header">
@@ -51,7 +56,10 @@ const FavoritesPage = () => {
                 {favorites.length > 0 ? (
                     favorites.map((image) => (
                         <div key={image.id} className="image-item">
-                            <img src={`http://localhost:5000/${image.filepath}`} alt={image.filename}/>
+                            <img
+                                src={`http://localhost:5000/${image.filepath}`}
+                                alt={image.filename}
+                                onClick={() => handleImageClick(image.id)}/>
                             <button
                                 className="delete-favorite-button"
                                 onClick={() => handleDeleteFavorite(image.id)}
@@ -59,10 +67,10 @@ const FavoritesPage = () => {
                                 Remove
                             </button>
                             <div className="overlay">
-                                <p><strong>NCBI Classification:</strong> {image.ncbiclassification}</p>
+                                <p><strong>Category:</strong> {image.category}</p>
                                 <p><strong>Species:</strong> {image.species}</p>
-                                <p><strong>Cellular Component:</strong> {image.cellularcomponent}</p>
-                                <p><strong>Biological Process:</strong> {image.biologicalprocess}</p>
+                                <p><strong>Component:</strong> {image.cellular_component}</p>
+                                <p><strong>Process:</strong> {image.biological_process}</p>
                             </div>
                         </div>
                     ))

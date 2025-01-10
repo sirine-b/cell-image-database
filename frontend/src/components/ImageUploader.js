@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './ImageUploader.css';  // Add this line
+import './ImageUploader.css';
 
 function ImageUploader() {
     const [file, setFile] = useState(null);
     const [imageData, setImageData] = useState({
-        ncbiclassification: '',
-        species: '',
-        cellularcomponent: '',
-        biologicalprocess: '',
-        shape: '',
-        imagingmod: '',
-        description: '',
-        licensing: '',
+        Category: '',
+        Species: '',
+        Cellular_Component: '',
+        Biological_Process: '',
+        Shape: '',
+        Imaging_Modality: '',
+        Description: '',
+        Licensing: '',
     });
 
     const handleFileChange = (e) => {
@@ -49,32 +49,36 @@ function ImageUploader() {
         <div className="image-uploader">
             <h2>Upload Image</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="file-upload">Select Image:</label>
+                <div className="file-input-container">
+                    <label htmlFor="file-upload" className="file-input-label" style={{color: 'white',textAlign:"center"}}>
+                        Select Image
+                    </label>
                     <input
                         id="file-upload"
                         type="file"
                         onChange={handleFileChange}
                         accept="image/*"
                         required
+                        className="file-input"
                     />
                 </div>
 
                 {Object.keys(imageData).map(key => (
-                    <div key={key}>
-                        <label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                    <div key={key} className="input-container">
+                        <label htmlFor={key}>{key.replace(/_/g, ' ')}:</label>
                         <input
                             id={key}
-                            type={key === 'numbercells' ? 'number' : 'text'}
+                            type={key === 'Number_Cells' ? 'number' : 'text'}
                             name={key}
                             value={imageData[key]}
                             onChange={handleInputChange}
                             required
+                            className="text-input"
                         />
                     </div>
                 ))}
 
-                <button type="submit">Upload Image</button>
+                <button type="submit" className="submit-button">Upload Image</button>
             </form>
         </div>
     );
