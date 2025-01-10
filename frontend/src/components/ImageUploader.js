@@ -39,6 +39,25 @@ function ImageUploader() {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             alert('Image uploaded successfully');
+
+            // Reset the file state
+            setFile(null);
+
+            // Reset the imageData state
+            setImageData({
+                Category: '',
+                Species: '',
+                Cellular_Component: '',
+                Biological_Process: '',
+                Shape: '',
+                Imaging_Modality: '',
+                Description: '',
+                Licensing: '',
+            });
+
+            // Clear the file input
+            document.getElementById('file-upload').value = '';
+
         } catch (error) {
             console.error('Upload error', error);
             alert('Upload failed');
