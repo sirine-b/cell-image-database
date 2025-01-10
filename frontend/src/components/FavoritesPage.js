@@ -66,8 +66,8 @@ const FavoritesPage = () => {
                             <div className="overlay">
                                 <p><strong>Category:</strong> {image.category}</p>
                                 <p><strong>Species:</strong> {image.species}</p>
-                                <p><strong>Component:</strong> {image.cellular_component}</p>
-                                <p><strong>Process:</strong> {image.biological_process}</p>
+                                <p><strong>Cellular Component:</strong> {image.cellular_component}</p>
+                                <p><strong>Biological Process:</strong> {image.biological_process}</p>
                             </div>
                         </div>
                     ))

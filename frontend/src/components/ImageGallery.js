@@ -114,10 +114,10 @@ function ImageGallery() {
                                 ❤️
                             </div>
                             <div className="overlay">
-                                <p><strong>NCBI:</strong> {image.ncbiclassification}</p>
+                                <p><strong>Category:</strong> {image.category}</p>
                                 <p><strong>Species:</strong> {image.species}</p>
-                                <p><strong>Component:</strong> {image.cellularcomponent}</p>
-                                <p><strong>Process:</strong> {image.biologicalprocess}</p>
+                                <p><strong>Cellular Component:</strong> {image.cellular_component}</p>
+                                <p><strong>Biological Process:</strong> {image.biological_process}</p>
                             </div>
                         </div>
                     ))}
