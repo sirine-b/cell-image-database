@@ -1,29 +1,3 @@
-/*
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
-import ImageGallery from './components/ImageGallery';
-import ImageUploader from './components/ImageUploader';
-import ReinitialiseTables from './components/ReinitialiseTables';
-import ImageDetails from './components/ImageDetails';
-function App() {
-    return (
-        <Router>
-            <div className="App">
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/upload" element={<ImageUploader />} />
-                    <Route path="/" element={<ImageGallery />} />
-                    <Route path="/reinitialisetables" element={<ReinitialiseTables />}/>
-                    <Route path="/image/:id" element={<ImageDetails />} />
-                </Routes>
-            </div>
-        </Router>
-    );
-}
-export default App;*/
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Login from './components/Login';
@@ -35,6 +9,10 @@ import ImageDetails from './components/ImageDetails';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import FavoritesPage from './components/FavoritesPage';
+import Logo from './components/Logo';
+
+
+
 
 function App() {
     return (
@@ -51,6 +29,7 @@ function App() {
                     <Route path="/search" element={<SearchResults />} />
                     <Route path="/favorites" element={<FavoritesPage />} />
                 </Routes>
+                <Logo/>
             </div>
         </Router>
     );

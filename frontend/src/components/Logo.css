@@ -1,0 +1,11 @@
+.logo {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+    cursor: pointer;
+}
+
+.logo img {
+    width: 110px;
+    height: auto;
+}

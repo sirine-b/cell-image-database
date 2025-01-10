@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './ImageDetails.css';
 
 function ImageDetails() {
     const { id } = useParams(); // Get the image ID from URL parameters
@@ -21,22 +22,23 @@ function ImageDetails() {
         fetchImageDetails();
     }, [id]);
 
-    if (!imageData) return <div>Loading...</div>;
+    if (!imageData) return <div className="loading">Loading...</div>;
 
     return (
-        <div>
-            <h2>{imageData.filename}</h2>
-            <img src={`http://localhost:5000/${imageData.filepath}`} alt={imageData.filename}/>
-            <p><strong>NBCI Classification:</strong> {imageData.ncbiclassification}</p>
-            <p><strong>Species:</strong> {imageData.species}</p>
-            <p><strong>Cellular Component:</strong> {imageData.cellularcomponent}</p>
-            <p><strong>Biological Process:</strong> {imageData.biologicalprocess}</p>
-            <p><strong>Shape:</strong> {imageData.shape}</p>
-            {/*<p><strong>Number of Cells:</strong> {imageData.numbercells}</p>*/}
-            <p><strong>Imaging Modality:</strong> {imageData.imagingmod}</p>
-            <p><strong>Description:</strong> {imageData.description}</p>
-            <p><strong>Licencing: </strong> {imageData.licensing}</p>
-            {/* Add more metadata fields as necessary */}
+        <div className="image-details-container">
+
+            <img className="image-display" src={`http://localhost:5000/${imageData.filepath}`} alt={imageData.filename} />
+
+            <div className="image-metadata">
+                <p><span className="metadata-label">Category:</span> {imageData.category}</p>
+                <p><span className="metadata-label">Species:</span> {imageData.species}</p>
+                <p><span className="metadata-label">Cellular Component:</span> {imageData.cellular_component}</p>
+                <p><span className="metadata-label">Biological Process:</span> {imageData.biological_process}</p>
+                <p><span className="metadata-label">Shape:</span> {imageData.shape}</p>
+                <p><span className="metadata-label">Imaging Modality:</span> {imageData.imaging_modality}</p>
+                <p><span className="metadata-label">Description:</span> {imageData.description}</p>
+                <p><span className="metadata-label">Licensing:</span> {imageData.licensing}</p>
+            </div>
         </div>
     );
 }

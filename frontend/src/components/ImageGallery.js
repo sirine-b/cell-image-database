@@ -46,7 +46,7 @@ function ImageGallery() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUser(null);
-        navigate('/login');
+        navigate('/');
     };
 
     const handleImageClick = (imageId) => {
@@ -114,10 +114,10 @@ function ImageGallery() {
                                 ❤️
                             </div>
                             <div className="overlay">
-                                <p><strong>Category:</strong> {image.category}</p>
+                                <p><strong>NCBI:</strong> {image.ncbiclassification}</p>
                                 <p><strong>Species:</strong> {image.species}</p>
-                                <p><strong>Component:</strong> {image.cellular_component}</p>
-                                <p><strong>Process:</strong> {image.biological_process}</p>
+                                <p><strong>Component:</strong> {image.cellularcomponent}</p>
+                                <p><strong>Process:</strong> {image.biologicalprocess}</p>
                             </div>
                         </div>
                     ))}

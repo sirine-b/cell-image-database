@@ -46,9 +46,6 @@ const FavoritesPage = () => {
 
     return (
         <div className="image-gallery">
-            <header className="header">
-                <button className="gallery-button" onClick={() => navigate('/')}>Image Gallery</button>
-            </header>
             <div className="title-container">
                 <h2>Your Favorites</h2>
             </div>
