@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
+const { exec } = require('child_process');
 
 // Add this before setting up multer
 const uploadDir = path.join(__dirname, 'uploads');
@@ -81,6 +83,56 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Route to launch Cellpose GUI and process the result
+app.get('/cellpose', (req, res) => {
+    const activateEnvCommand = `source ${path.join(__dirname, 'cellpose', 'bin', 'activate')}`;
+    const cellposeCommand = `${activateEnvCommand} && python -m cellpose`;
+    const outputDir = path.join(__dirname, 'output'); // Set the directory where Cellpose saves results
+
+    // Ensure the output directory exists
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+    }
+
+    // Launch Cellpose GUI
+    exec(cellposeCommand, { shell: '/bin/bash' }, (error, stdout, stderr) => {
+        if (error) {
+            console.error('Error launching Cellpose:', error);
+            res.status(500).json({ error: 'Failed to launch Cellpose GUI', details: stderr });
+            return;
+        }
+
+        console.log('Cellpose GUI launched successfully. Waiting for it to close...');
+        res.status(200).json({ message: 'Cellpose GUI launched successfully' });
+
+        // Monitor for the saved seg.npy file
+        const filePath = path.join(outputDir, 'seg.npy');
+        const interval = setInterval(() => {
+            if (fs.existsSync(filePath)) {
+                clearInterval(interval);
+                console.log('seg.npy file detected:', filePath);
+
+                // Count the number of cells using a Python script
+                const pythonScript = path.join(__dirname, 'count_cells.py');
+                const pythonProcess = spawn('python3', [pythonScript, filePath]);
+
+                pythonProcess.stdout.on('data', (data) => {
+                    console.log('Python script output:', data.toString());
+                    // Optionally, send the data to a client if needed
+                });
+
+                pythonProcess.stderr.on('data', (data) => {
+                    console.error('Error in Python script:', data.toString());
+                });
+
+                pythonProcess.on('close', (code) => {
+                    console.log(`Python script exited with code ${code}`);
+                });
+            }
+        }, 1000); // Check every second
+    });
+});
+
 // Image upload
 app.post('/api/upload', upload.single('image'), async (req, res) => {
     try {
@@ -88,28 +140,101 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
+
         const filename = req.file.filename; // Get the filename of the uploaded file
+        const filePath = req.file.path; // Get the file path of the uploaded file
 
         const {
-            Category,
-            Species,
-            Cellular_Component,
-            Biological_Process,
-            Shape,
-            Imaging_Modality,
-            Description,
-            Licensing,
+            ncbiclassification,
+            species,
+            cellularcomponent,
+            biologicalprocess,
+            shape,
+            imagingmod,
+            description,
+            licensing,
         } = req.body;
 
+        // Insert image metadata into the database
         const result = await pool.query(
-            'INSERT INTO images (filepath, Category, Species, Cellular_Component, Biological_Process, Shape, Imaging_Modality,Description, Licensing) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id',
-            [req.file.path, Category, Species, Cellular_Component, Biological_Process, Shape, Imaging_Modality,Description, Licensing]
+            'INSERT INTO images (filename, filepath, ncbiclassification, species, cellularcomponent, biologicalprocess, shape, imagingmod, description, licensing) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id',
+            [filename, filePath, ncbiclassification, species, cellularcomponent, biologicalprocess, shape, imagingmod, description, licensing]
         );
 
-        res.status(201).json({ message: 'Image uploaded successfully', imageId: result.rows[0].id });
+        const imageId = result.rows[0].id;
+        console.log(`Image uploaded successfully with ID: ${imageId}`);
+
+        // Run Cellpose on the uploaded image
+        const activateEnvCommand = `source ${path.join(__dirname, 'cellpose', 'bin', 'activate')}`;
+        const cellposeCommand = `${activateEnvCommand} && python3 -m cellpose --image ${filePath} --diameter 0 --verbose`;
+
+        const cellposeProcess = spawn('/bin/bash', ['-c', cellposeCommand]);
+
+        cellposeProcess.stdout.on('data', (data) => {
+            console.log('Cellpose output:', data.toString());
+        });
+
+        cellposeProcess.stderr.on('data', (data) => {
+            console.error('Cellpose error:', data.toString());
+        });
+
+        cellposeProcess.on('close', async (code) => {
+            console.log(`Cellpose process exited with code: ${code}`);
+
+            if (code === 0) {
+                // Locate the seg.npy file
+                const npyPath = filePath.replace(/\.jpg$/, '_seg.npy');
+
+                // Run the Python cell counting script
+                const pythonProcess = spawn('python3', [path.join(__dirname, 'count_cells.py'), npyPath]);
+
+                let pythonOutput = ''; // Define pythonOutput to accumulate data from the Python process
+
+                pythonProcess.stdout.on('data', (data) => {
+                    pythonOutput += data.toString();
+                    console.log('Python script output chunk:', data.toString());
+                });
+
+                pythonProcess.on('close', async (pyCode) => {
+                    if (pyCode === 0) {
+                        console.log('Cell counting completed successfully.');
+
+                        // Ensure pythonOutput was captured
+                        console.log('Full Python output:', pythonOutput);
+                        const cellCountMatch = pythonOutput.match(/with (\d+) cells\./);
+                        if (cellCountMatch) {
+                            const cellCount = parseInt(cellCountMatch[1], 10);
+
+                            // Update the database with the cell count
+                            await pool.query(
+                                'UPDATE images SET numbercells = $1 WHERE id = $2',
+                                [cellCount, imageId]
+                            );
+
+                            console.log(`Database updated with cell count: ${cellCount}`);
+                            res.status(201).json({
+                                message: 'Image uploaded and processed successfully',
+                                imageId,
+                                cellCount,
+                            });
+                        } else {
+                            console.error('Failed to parse cell count from script output.');
+                            res.status(500).json({ error: 'Failed to process cell count.' });
+                        }
+                    } else {
+                        console.error('Error in cell counting process.');
+                        res.status(500).json({ error: 'Cell counting process failed.' });
+                    }
+                });
+
+            } else {
+                console.error('Error in Cellpose process.');
+                res.status(500).json({ error: 'Cellpose process failed.' });
+            }
+        });
     } catch (error) {
-        console.error('Upload error:', error); // Log the specific error for debugging
-        res.status(500).json({ error: 'Error uploading image' });
+        console.error('Upload error:', error);
+        res.status(500).json({ error: 'Error uploading file or processing image.' });
     }
 });
 
