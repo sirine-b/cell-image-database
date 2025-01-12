@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './ImageUploader.css';
 
+/**
+ * ImageUploader Component
+ * - Allows users to upload an image along with associated metadata.
+ * - Sends the image and metadata to a backend API for storage.
+ */
 function ImageUploader() {
     const [file, setFile] = useState(null);
     const [imageData, setImageData] = useState({
@@ -14,10 +19,18 @@ function ImageUploader() {
         Description: '',
         Licensing: '',
     });
-
+    /**
+     * Updates the `file` state when a user selects an image.
+     * @param {Event} e - The file input change event
+     */
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
+
+    /**
+     * Updates the `imageData` state when a user modifies a metadata field.
+     * @param {Event} e - The input change event
+     */
 
     const handleInputChange = (e) => {
         setImageData({
@@ -26,9 +39,15 @@ function ImageUploader() {
         });
     };
 
+    /**
+     * Handles form submission:
+     * - Prepares a `FormData` object containing the image file and metadata.
+     * - Sends the data to the backend API for uploading.
+     * - Resets the form and provides feedback to the user.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
+        const formData = new FormData();// Create a FormData object to handle file and metadata
         formData.append('image', file);
         Object.keys(imageData).forEach(key => {
             formData.append(key, imageData[key]);
@@ -40,7 +59,7 @@ function ImageUploader() {
             });
             alert('Image uploaded successfully');
 
-            // Reset the file state
+            // Reset the file and metadata states
             setFile(null);
 
             // Reset the imageData state
