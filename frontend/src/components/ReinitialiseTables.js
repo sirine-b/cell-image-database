@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 function ReinitialiseTables() {
+    // Sends a request to reinitialize database tables and displays a success or error message
     const handleReinitialize = async () => {
         try {
             const response = await axios.post('http://localhost:5000/api/reinitialisetables');
@@ -12,6 +13,7 @@ function ReinitialiseTables() {
         }
     };
 
+    // Renders the button and title for triggering table reinitialization
     return (
         <div>
             <h2>Reinitialise Tables</h2>

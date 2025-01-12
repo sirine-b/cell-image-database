@@ -4,23 +4,23 @@ import axios from 'axios';
 import './ImageGallery.css';
 
 const SearchResults = () => {
-    const [images, setImages] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-    const location = useLocation();
-    const navigate = useNavigate();
+    const [images, setImages] = useState([]); // Stores search results.
+    const [favorites, setFavorites] = useState([]); // Stores the user's favorite images.
+    const location = useLocation(); // Retrieves the current URL parameters for the search query and filter.
+    const navigate = useNavigate(); // Enables navigation to different pages.
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
+        const params = new URLSearchParams(location.search); // Extracts query and filter parameters.
         const query = params.get('query');
         const filter = params.get('filter');
 
         const fetchData = async () => {
             try {
-                // Fetch search results
+                // Fetch search results from the backend based on query and filter.
                 const response = await axios.get(`http://localhost:5000/api/search?query=${query}&filter=${filter}`);
                 setImages(response.data);
 
-                // Fetch user's favorites
+                // Fetch user's favorite images if logged in.
                 const token = localStorage.getItem('token');
                 if (token) {
                     const favoritesResponse = await axios.get('http://localhost:5000/api/favorites', {
@@ -36,6 +36,7 @@ const SearchResults = () => {
         fetchData();
     }, [location.search]);
 
+    // Toggles an image's favorite status (add/remove from favorites)
     const toggleFavorite = async (imageId, isFavorite) => {
         const token = localStorage.getItem('token');
         if (!token) return;
@@ -48,7 +49,7 @@ const SearchResults = () => {
                 });
                 setFavorites(favorites.filter(favId => favId !== imageId));
             } else {
-                // Add to favorites
+                // Add the image to favorites.
                 await axios.post(
                     'http://localhost:5000/api/favorites',
                     { imageId },
