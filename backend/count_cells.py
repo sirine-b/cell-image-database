@@ -35,7 +35,7 @@ def update_database(file_name, cell_count):
         conn = psycopg2.connect(
             dbname="postgres",
             user="postgres", #Change to your username
-            password="123456", #Change to your password
+            password="1234", #Change to your password
             host="localhost",
             port="5432"
         )

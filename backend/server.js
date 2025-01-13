@@ -163,7 +163,8 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
         );
         const imageId = result.rows[0].id; // Retrieve the generated ID of the new database entry
 
-        // For Windows Users: Run Cellpose on the uploaded image
+        // Run Cellpose on the uploaded image
+        // For Windows Users:
         const activateEnvCommand = `${path.join(__dirname, 'cellpose', 'Scripts', 'activate.bat')}`;
         const cellposeCommand = `${activateEnvCommand} && python -m cellpose --image ${filePath} --diameter 0 --verbose`;
         const cellposeProcess = spawn('cmd.exe', ['/c', cellposeCommand]);
