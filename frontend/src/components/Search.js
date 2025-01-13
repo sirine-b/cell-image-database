@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Component to search for images based on a query
 function Search() {
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
+    const [query, setQuery] = useState(''); // State to hold the search query
+    const [results, setResults] = useState([]); // State to hold search results
 
+    // Handles the search action by sending a request to the server
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.get(`http://localhost:5000/api/search?query=${query}`);
-            setResults(response.data);
+            setResults(response.data); // Update results with server response
         } catch (error) {
             console.error('Search error', error);
         }
     };
 
+    // Renders the search bar and displays the results
     return (
         <div>
             <form onSubmit={handleSearch}>
