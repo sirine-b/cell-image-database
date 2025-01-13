@@ -85,7 +85,7 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
 ### Step 5: Run the Application
 
 #### Step 1: Connect the PostgreSQL Database:
-   - Start IntelliJ, find database (cell_image_db), right click to find properties
+   - Start IntelliJ, find database (cell_image_db), right click to find properties.
    - Fill in the login credentials (username and password), then test connection. If successful, proceed, if not, update any data driver files required.
    - Paste the following into the PostgreSQL console in IntelliJ to create the tables:
      ```javascript
@@ -120,7 +120,7 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
          UNIQUE(user_id, image_id)
      );
      ```
-- run the database console code
+- Run the database console code.
 
 #### Step 2: Adjust the Login and Password for the database:
    - Modify the database connection settings with your PostgreSQL credentials in server.js and count_cells.py :
