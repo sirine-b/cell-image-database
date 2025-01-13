@@ -1,18 +1,22 @@
+/* Centers all content and applies general styling to the app container */
 .App {
   text-align: center;
 }
 
+/* Sets the size of the logo and disables pointer events */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+/* Adds an animation to the logo for a spinning effect, only when motion is not reduced */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
+/* Styles the header section with a dark background, central alignment, and flexible layout */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,10 +28,12 @@
   color: white;
 }
 
+/* Styles links within the app, setting them to a specific blue color */
 .App-link {
   color: #61dafb;
 }
 
+/* Defines the keyframes for the logo's spinning animation */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

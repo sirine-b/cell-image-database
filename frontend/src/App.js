@@ -1,3 +1,4 @@
+// Imports required components and libraries
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Login from './components/Login';
@@ -10,10 +11,9 @@ import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import FavoritesPage from './components/FavoritesPage';
 import Logo from './components/Logo';
+import Cellpose from './components/Cellpose';
 
-
-
-
+// Main App component with routing setup
 function App() {
     return (
         <Router>
@@ -28,6 +28,7 @@ function App() {
                     <Route path="/image/:id" element={<ImageDetails />} />
                     <Route path="/search" element={<SearchResults />} />
                     <Route path="/favorites" element={<FavoritesPage />} />
+                    <Route path="/cellpose" element={<Cellpose />} />
                 </Routes>
                 <Logo/>
             </div>
@@ -35,6 +36,7 @@ function App() {
     );
 }
 
+// Conditionally renders the search bar on specific pages
 function ConditionalSearchBar() {
     const location = useLocation();
     return (location.pathname === '/' || location.pathname === '/search') ? <SearchBar /> : null;
