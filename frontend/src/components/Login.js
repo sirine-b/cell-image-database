@@ -29,7 +29,7 @@ function Login() {
     return (
         <div className="login-page">
             <div className="login-container">
-                <h1 className="login-title">Login</h1> {/* Page title */}
+                <h1 className="login-title">Login</h1>
                 <form className="login-form" onSubmit={handleSubmit}>
                     {/* Input fields for username and password */}
                     <input

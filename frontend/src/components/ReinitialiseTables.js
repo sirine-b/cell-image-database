@@ -1,5 +1,5 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'; // Import React to define and render components
+import axios from 'axios'; // Import axios for handling HTTP requests
 
 function ReinitialiseTables() {
     // Sends a request to reinitialize database tables and displays a success or error message

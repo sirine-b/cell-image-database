@@ -14,19 +14,22 @@
     margin-bottom: 2rem;
 }
 
+/* Indicate that the logo is clickable */
 .user-info {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
+/* Styles the username text. */
 .user-info span {
     font-size: 1.1rem;
-    color: #4B0082;
+    color: #BBCD86;
 }
 
+/* Styles the logout button with a green background, rounded corners, and hover effects. */
 .logout-button {
-    background-color: #9370DB;
+    background-color: #BBCD86;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -36,7 +39,7 @@
 }
 
 .logout-button:hover {
-    background-color: #7B68EE;
+    background-color: #BBCD86;
 }
 
 /* Title styling */
@@ -44,7 +47,7 @@
     text-align: center;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, #9370DB, #8A2BE2);
+    background: #BBCD86;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -65,6 +68,7 @@
     padding: 1rem;
 }
 
+/* Styles the search input box with rounded corners, and hover effects. */
 .search-bar input {
     width: 400px;
     padding: 0.8rem 1.2rem;
@@ -74,11 +78,13 @@
     transition: border-color 0.3s;
 }
 
+/* Changes the border color of the input box when focused. */
 .search-bar input:focus {
     outline: none;
-    border-color: #9370DB;
+    border-color: #BBCD86;
 }
 
+/* Styles the dropdown menu with a clean white background and rounded corners. */
 .search-bar select {
     padding: 0.8rem 1.2rem;
     border: 2px solid #E6E6FA;
@@ -88,9 +94,10 @@
     cursor: pointer;
 }
 
+/* Styles the search button with a green background, white text, and hover effects. */
 .search-bar button {
     padding: 0.8rem 1.5rem;
-    background-color: #9370DB;
+    background-color: #BBCD86;
     color: white;
     border: none;
     border-radius: 8px;
@@ -99,6 +106,7 @@
     transition: background-color 0.3s;
 }
 
+/* Ensures the hover effect keeps the same color for consistency. */
 .search-bar button:hover {
-    background-color: #7B68EE;
+    background-color: #BBCD86;
 }

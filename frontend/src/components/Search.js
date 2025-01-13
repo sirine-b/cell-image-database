@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'; // Import React and the useState hook to manage component state
+import axios from 'axios'; // Import axios for making HTTP requests
 
 // Component to search for images based on a query
 function Search() {
     const [query, setQuery] = useState(''); // State to hold the search query
     const [results, setResults] = useState([]); // State to hold search results
 
-    // Handles the search action by sending a request to the server
+    // Handle the search action by sending a request to the server
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
@@ -17,7 +17,7 @@ function Search() {
         }
     };
 
-    // Renders the search bar and displays the results
+    // Render the search bar and display the results
     return (
         <div>
             <form onSubmit={handleSearch}>
@@ -33,16 +33,16 @@ function Search() {
             <div className="search-results">
                 {results.map((image) => (
                     <div key={image.id} className="image-card">
-                        <img src={`http://localhost:5000/${image.filepath}`} alt={image.filename} />
-                        <p>NCBI Classification: {image.ncbiclassification}</p>
+                        <img src={`http://localhost:5000/${image.filepath}`} alt={image.filename}/>
+                        <p>Category: {image.category}</p>
                         <p>Species: {image.species}</p>
-                        <p>Cellular Component: {image.cellularcomponent}</p>
-                        <p>Biological Process: {image.biologicalprocess}</p>
+                        <p>Cellular Component: {image.cellular_component}</p>
+                        <p>Biological Process: {image.biological_process}</p>
                         <p>Shape: {image.shape}</p>
-                        <p>Imaging Modality: {image.imagingmod}</p>
+                        <p>Number of Cells: {image.number_cells}</p>
+                        <p>Imaging Modality: {image.imaging_modality}</p>
                         <p>Description: {image.description}</p>
-                        <p>Licensing: {image.licensing}</p>
-                        <p>Number of Cells: {image.numbercells}</p>
+                        <p>DOI: {image.doi}</p>
                     </div>
                 ))}
             </div>

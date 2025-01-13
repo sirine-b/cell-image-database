@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import logoImage from 'C:\\Users\\danielhuang\\celldatabase\\frontend\\src\\logo2.png'; // Adjust the path as needed
-import './Logo.css'
+import React from 'react'; // Import React to define and render components
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for accessing URL parameters
+import logoImage from  '../logo2.png';
+import './Logo.css' // Import the CSS file for styling this component
 
 function Logo() {
     const navigate = useNavigate();

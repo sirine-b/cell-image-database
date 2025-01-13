@@ -1,3 +1,4 @@
+/* Full-page styling */
 .login-page {
     display: flex;
     justify-content: center;
@@ -6,6 +7,7 @@
     background: white;
 }
 
+/* Container for the login box */
 .login-container {
     background: #EAEFD9;
     padding: 90px;
@@ -15,6 +17,7 @@
     width: 550px;
 }
 
+/* Title styling */
 .login-title {
     color: #4E7896;
     font-size: 40px;
@@ -22,12 +25,14 @@
     margin-bottom: 20px;
 }
 
+/* Form layout */
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
+/* Input field styling */
 .login-input {
     padding: 12px;
     font-size: 20px;
@@ -35,12 +40,14 @@
     border-radius: 5px;
 }
 
+/* Input field focus effect */
 .login-input:focus {
-    border-color: #6a11cb;
-    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+    border-color: #6a11cb; /* Purple border on focus */
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5); /* Subtle glow effect */
     outline: none;
 }
 
+/* Login button styling */
 .login-button {
     background: linear-gradient(to right,#BBCD86, #4E7896);
 
@@ -54,10 +61,12 @@
     transition: background 0.3s;
 }
 
+/* Login button hover effect */
 .login-button:hover {
     background: linear-gradient(to right, #4E7896, #BBCD86);
 }
 
+/* Error message styling */
 .login-error {
     margin-top: 10px;
     color: red;

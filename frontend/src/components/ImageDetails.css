@@ -1,9 +1,9 @@
 /* Overall Container */
 .image-details-container {
-    max-width: 800px;
+    max-width: 400px;
     margin: 20px auto;
     padding: 20px;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background: #BBCD86;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: white;
@@ -38,7 +38,7 @@
 /* Metadata Label Styling */
 .metadata-label {
     font-weight: bold;
-    color: #ffe9e9;
+    color: #4E7896;
 }
 
 /* Loading Message */

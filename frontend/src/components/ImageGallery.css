@@ -1,3 +1,4 @@
+/* Main container layout and front settings */
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -5,6 +6,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* Header layout and styling */
 .header {
     display: flex;
     justify-content: space-between;
@@ -17,6 +19,7 @@
     border-radius: 5px;
 }
 
+/* Styling for user info section in the header */
 .user-info {
     display: flex;
     align-items: center;
@@ -26,6 +29,7 @@
     margin-right: 20px;
 }
 
+/* Logout button styling */
 .logout-button {
     background-color: #f44336;
     color: white;
@@ -40,6 +44,7 @@
     background-color: #d32f2f;
 }
 
+/* Image gallery layout */
 .image-gallery .images {
     display: flex;
     flex-wrap: wrap;
@@ -47,6 +52,7 @@
     justify-content: center;
 }
 
+/* Styling for individual image items */
 .image-item {
     width: 300px;
     height: 300px;
@@ -62,6 +68,7 @@
     transform: translateY(-5px);
 }
 
+/* Image display settings within the image item */
 .image-item img {
     width: 100%;
     height: 100%;
@@ -73,12 +80,13 @@
     transform: scale(1.05);
 }
 
+/* Overlay for image metadata */
 .overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(147, 112, 219, 0.8);
+    background-color: #BBCD86;
     color: white;
     padding: 10px;
     transform: translateY(100%);
@@ -89,6 +97,7 @@
     transform: translateY(0);
 }
 
+/* Favorite icon styling */
 .favorite-icon {
     position: absolute;
     top: 10px;
@@ -107,11 +116,12 @@
     color: #ff4081;
 }
 
+/* Title container styling for the page */
 .title-container {
     text-align: center;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, #9370DB, #8A2BE2);
+    background: #BBCD86;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -123,9 +133,10 @@
     font-weight: 600;
 }
 
+/* Styling for favorites and gallery buttons */
 .favorites-button,
 .gallery-button {
-    background-color: #9370DB;
+    background-color: #BBCD86;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -137,10 +148,11 @@
 
 .favorites-button:hover,
 .gallery-button:hover {
-    background-color: #7B68EE;
+    background-color: #BBCD86;
     transform: translateY(-2px);
 }
 
+/* Styling for the delete favorite button */
 .delete-favorite-button {
     position: absolute;
     top: 10px;
@@ -159,14 +171,16 @@
     background-color: #d32f2f;
 }
 
+/* Button container for navigation buttons */
 .button-container {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
+/* Styling for navigation buttons */
 .nav-button {
-    background-color: #9370DB;
+    background-color: #BBCD86;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -178,9 +192,11 @@
 }
 
 .nav-button:hover {
-    background-color: #7B68EE;
+    background-color: #BBCD86;
     transform: translateY(-2px);
 }
+
+/* Styling for the title container */
 .title-container {
     display: flex;
     justify-content: center;
@@ -188,6 +204,7 @@
     position: relative;
 }
 
+/* Styling for the user greeting text */
 .user-greeting {
     position: absolute;
     right:40px;

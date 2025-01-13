@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'; // Import React and the useState hook to manage component state
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for accessing URL parameters
 
 // A reusable search bar component with filtering options
 const SearchBar = () => {
@@ -12,7 +12,7 @@ const SearchBar = () => {
         navigate(`/search?query=${query}&filter=${filter}`);
     };
 
-    // Renders the search input, filter dropdown, and search button
+    // Render the search input, filter dropdown and search button
     return (
         <div className="search-bar">
             <input
@@ -23,14 +23,15 @@ const SearchBar = () => {
             />
             <select value={filter} onChange={(e) => setFilter(e.target.value)}>
                 <option value="">All Features</option>
-                <option value="ncbiclassification">NCBI Classification</option>
+                <option value="Category">Category</option>
                 <option value="species">Species</option>
-                <option value="cellularcomponent">Cellular Component</option>
-                <option value="biologicalprocess">Biological Process</option>
-                <option value="shape">Shape</option>
-                <option value="imagingmod">Imaging Mod</option>
-                <option value="description">Description</option>
-                <option value="licensing">Licensing</option>
+                <option value="Cellular Component">Cellular Component</option>
+                <option value="Biological Process">Biological Process</option>
+                <option value="Shape">Shape</option>
+                <option value="Number of Cells">Number of Cells</option>
+                <option value="Imaging Modality">Imaging Modality</option>
+                <option value="Description">Description</option>
+                <option value="DOI">DOI</option>
             </select>
             <button onClick={handleSearch}>Search</button>
         </div>

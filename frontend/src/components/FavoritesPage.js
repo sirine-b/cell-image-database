@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './ImageGallery.css';
+import React, { useEffect, useState } from 'react'; // Import React and hooks for component logic and state management
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate for accessing URL parameters
+import axios from 'axios'; // Import axios for making HTTP requests
+import './ImageGallery.css' // Import the CSS file for styling this component
 
 // FavoritesPage component handles displaying the user's favorite images and allowing interactions with them.
 const FavoritesPage = () => {
-    const [favorites, setFavorites] = useState([]); // Stores the list of favorite images.
+    const [favorites, setFavorites] = useState([]); // Store the list of favorite images.
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -14,7 +15,7 @@ const FavoritesPage = () => {
             if (!token) return;
 
             try {
-                // Fetches the user's favorite images from the server.
+                // Fetch the user's favorite images from the server.
                 const response = await axios.get('http://localhost:5000/api/favorites', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -32,25 +33,25 @@ const FavoritesPage = () => {
         if (!token) return;
 
         try {
-            // Deletes the selected favorite image from the server and updates the local state.
+            // Delete the selected favorite images from the server and update the local state.
             await axios.delete(`http://localhost:5000/api/favorites/${imageId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            setFavorites(favorites.filter(image => image.id !== imageId));
+            setFavorites(favorites.filter(image => image.id !== imageId)); // Remove image locally
         } catch (error) {
             console.error('Error deleting favorite:', error);
         }
     };
 
     const handleImageClick = (imageId) => {
-        // Navigates to the image detail of the clicked image.
+        // Navigate to the image detail of the clicked image.
         navigate(`/image/${imageId}`);
     };
 
     return (
         <div className="image-gallery">
             <div className="title-container">
-                <h2>Your Favorites</h2> {/* Displays the page title */}
+                <h2>Your Favorites</h2> {/* Display the page title */}
             </div>
             <div className="images">
                 {favorites.length > 0 ? (
@@ -59,8 +60,7 @@ const FavoritesPage = () => {
                             <img
                                 src={`http://localhost:5000/${image.filepath}`}
                                 alt={image.filename}
-                                onClick={() => handleImageClick(image.id)}
-                            /> {/* Displays each favorite image */}
+                                onClick={() => handleImageClick(image.id)}/> {/* Display each favorite image */}
                             <button
                                 className="delete-favorite-button"
                                 onClick={() => handleDeleteFavorite(image.id)}

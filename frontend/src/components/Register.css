@@ -1,3 +1,4 @@
+/* Full-page styling */
 .register-page {
     display: flex;
     justify-content: center;
@@ -6,6 +7,7 @@
     background: white;
 }
 
+/* Container for the register box */
 .register-container {
     background: #EAEFD9;
     padding: 90px;
@@ -15,6 +17,7 @@
     width: 550px;
 }
 
+/* Title styling */
 .register-title {
     font-size: 40px;
     font-weight: bold;
@@ -22,12 +25,14 @@
     color: #4E7896;
 }
 
+/* Form layout */
 .register-form {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
+/* Input field styling */
 .register-input {
     padding: 12px;
     font-size: 20px;
@@ -35,12 +40,14 @@
     border-radius: 5px;
 }
 
+/* Input field focus effect */
 .register-input:focus {
-    border-color: #6a11cb;
-    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+    border-color: #6a11cb; /* Purple border on focus */
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5); /* Subtle glow effect */
     outline: none;
 }
 
+/* Register button styling */
 .register-button {
     background: linear-gradient(to right, #BBCD86, #4E7896);
     border: none;
@@ -53,10 +60,12 @@
     transition: background 0.3s;
 }
 
+/* Register button hover effect */
 .register-button:hover {
     background: linear-gradient(to right, #4E7896, #BBCD86);
 }
 
+/* Error message styling */
 .register-error {
     margin-top: 10px;
     color: red;

@@ -2,7 +2,7 @@
     position: absolute;
     top: 0px;
     right: 50px;
-    cursor: pointer;
+    cursor: pointer; /* Indicate that the logo is clickable */
 }
 
 .logo img {

@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './ImageGallery.css';
+import React, { useEffect, useState } from 'react'; // Import React and hooks for managing component state
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation and useNavigate for accessing URL parameters
+import axios from 'axios'; // Import axios for making HTTP requests
+import './ImageGallery.css'; // Import the CSS file for styling this component
 
 const SearchResults = () => {
-    const [images, setImages] = useState([]); // Stores search results.
-    const [favorites, setFavorites] = useState([]); // Stores the user's favorite images.
-    const location = useLocation(); // Retrieves the current URL parameters for the search query and filter.
-    const navigate = useNavigate(); // Enables navigation to different pages.
+    const [images, setImages] = useState([]); // Stores search results
+    const [favorites, setFavorites] = useState([]); // Stores the user's favorite images
+    const location = useLocation(); // Retrieves the current URL parameters for the search query and filter
+    const navigate = useNavigate(); // Enables navigation to different pages
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search); // Extracts query and filter parameters.
+        const params = new URLSearchParams(location.search); // Extracts query and filter parameters
         const query = params.get('query');
         const filter = params.get('filter');
 
         const fetchData = async () => {
             try {
-                // Fetch search results from the backend based on query and filter.
+                // Fetch search results from the backend based on query and filter
                 const response = await axios.get(`http://localhost:5000/api/search?query=${query}&filter=${filter}`);
                 setImages(response.data);
 
-                // Fetch user's favorite images if logged in.
+                // Fetch user's favorites images if logged in
                 const token = localStorage.getItem('token');
                 if (token) {
                     const favoritesResponse = await axios.get('http://localhost:5000/api/favorites', {
@@ -43,13 +43,13 @@ const SearchResults = () => {
 
         try {
             if (isFavorite) {
-                // Remove from favorites
+                // Remove the image from favorites
                 await axios.delete(`http://localhost:5000/api/favorites/${imageId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setFavorites(favorites.filter(favId => favId !== imageId));
             } else {
-                // Add the image to favorites.
+                // Add the image to favorites
                 await axios.post(
                     'http://localhost:5000/api/favorites',
                     { imageId },
@@ -86,10 +86,10 @@ const SearchResults = () => {
                             ❤️
                         </div>
                         <div className="overlay">
-                            <p><strong>NCBI Classification:</strong> {image.ncbiclassification}</p>
+                            <p><strong>Category:</strong> {image.category}</p>
                             <p><strong>Species:</strong> {image.species}</p>
-                            <p><strong>Cellular Component:</strong> {image.cellularcomponent}</p>
-                            <p><strong>Biological Process:</strong> {image.biologicalprocess}</p>
+                            <p><strong>Cellular Component:</strong> {image.cellular_component}</p>
+                            <p><strong>Biological Process:</strong> {image.biological_process}</p>
                         </div>
                     </div>
                 ))}
