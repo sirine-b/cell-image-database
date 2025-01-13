@@ -1,7 +1,8 @@
 # Cell Image Database
 
-## Introduction
-The **Cell Image Database** is a comprehensive web application designed to streamline the management, storage, and analysis of cellular images. This platform addresses challenges faced by cellular biology researchers, such as the absence of centralized tools for storing and analyzing cell images, which often leads to inefficiencies in accessing, organizing, and cross-referencing data. 
+<img src="frontend/src/logo2.png" width="250" title="Cell Image Database" alt="Cell Image Database" align="right" vspace="50">
+
+The <strong>Cell Image Database</strong> is a comprehensive web application designed to streamline the management, storage, and analysis of cellular images. This platform addresses challenges faced by cellular biology researchers, such as the absence of centralized tools for storing and analyzing cell images, which often leads to inefficiencies in accessing, organizing, and cross-referencing data.
 
 By centralizing image storage and automating cell counting, the application reduces manual errors and saves time, enabling researchers to focus on analyzing findings rather than repetitive tasks. Additionally, the platform enhances collaboration by providing seamless sharing and retrieval of data.
 
