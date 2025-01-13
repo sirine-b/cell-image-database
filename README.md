@@ -34,27 +34,23 @@ Install Node from [Node Download](https://nodejs.org/en/download) and add Node t
 ### Step 3: Backend Setup
 1. Navigate to the backend directory:
    ```bash
-   cd Backend
+   cd backend
    ```
-2. Initialize a new Node.js project:
-   ```bash
-   npm init -y
-   ```
-3. Install the required dependencies:
+2. Install the required dependencies:
    ```bash
    npm install express cors dotenv
    ```
-4. Install the child process module for Node.js:
+3. Install the child process module for Node.js:
    ```bash
    npm install child_process
    ```
-5. Make sure you have PostgreSQL installed. Check by verifying the PostgreSQL version:
+4. Make sure you have PostgreSQL installed. Check by verifying the PostgreSQL version:
    ```bash
    psql --version
    ```
    If PostgreSQL is not installed, download and install it from [PostgreSQL Official Website](https://www.postgresql.org/).
 
-6. Install PostgreSQL adapter for Python:
+5. Install PostgreSQL adapter for Python:
    ```bash
    pip install psycopg2
    ```
@@ -62,12 +58,12 @@ Install Node from [Node Download](https://nodejs.org/en/download) and add Node t
 ### Step 4: Cellpose Installation
 You can install Cellpose using native Python if you have **Python 3.8+**.
 
-1. Create a Python virtual environment for Cellpose in backend:
+1. Create a Python virtual environment for Cellpose in **backend**:
    ```bash
    python3 -m venv cellpose
    ```
 2. Activate the virtual environment:
-   - **Mac**:
+   - **macOS/Linux**:
      ```bash
      source cellpose/bin/activate
      ```
@@ -89,7 +85,7 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
 ### Step 5: Run the Application
 
 #### Step 1: Connect the PostgreSQL Database:
-   - Start Intellej, find database, right click to find properties
+   - Start IntelliJ, find database (cell_image_db), right click to find properties
    - Fill in the login credentials (username and password), then test connection. If successful, proceed, if not, update any data driver files required.
    - Paste the following into the PostgreSQL console in IntelliJ to create the tables:
      ```javascript
@@ -126,8 +122,7 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
      ```
 - run the database console code
 
-#### Step 2: Adjust the Login and Password in `server.js`:
-   - Open the `server.js` file located in the backend directory.
+#### Step 2: Adjust the Login and Password for the database:
    - Modify the database connection settings with your PostgreSQL credentials in server.js and count_cells.py :
      ```javascript
      const pool = new Pool({
@@ -140,7 +135,7 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
      ```
 
 #### Step 3: Run the Server:
-   - From Intellej, run server.js
+   - From IntelliJ, run server.js
 
 #### Step 4: Start the Frontend:
    - Navigate to the frontend directory:
