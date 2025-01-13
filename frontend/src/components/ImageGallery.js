@@ -6,9 +6,9 @@ import './MainPage.css';
 
 function ImageGallery() {
 // State variables to store images, user data, and favorite images
-    const [images, setImages] = useState([]); // Stores the list of images fetched from the server
-    const [user, setUser] = useState(null); // Stores the currently logged-in user's information
-    const [favorites, setFavorites] = useState([]); // Stores the IDs of images marked as favorites
+    const [images, setImages] = useState([]); // Store the list of images fetched from the server
+    const [user, setUser] = useState(null); // Store the currently logged-in user's information
+    const [favorites, setFavorites] = useState([]); // Store the IDs of images marked as favorites
     const navigate = useNavigate(); // Hook for navigation between pages
 
     /**
@@ -37,10 +37,10 @@ function ImageGallery() {
                     const favoritesResponse = await axios.get('http://localhost:5000/api/favorites', {
                         headers: { Authorization: `Bearer ${token}` },
                     });
-                    setFavorites(favoritesResponse.data.map(fav => fav.id));// Extract and store favorite image ID
+                    setFavorites(favoritesResponse.data.map(fav => fav.id)); // Extract and store favorite image ID
                 }
             } catch (error) {
-                console.error('Error fetching user or favorites:', error);//catch errors
+                console.error('Error fetching user or favorites:', error); // Catch errors
                 setUser(null);
             }
         };
@@ -52,11 +52,11 @@ function ImageGallery() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUser(null);
-        navigate('/');//navigate back to homepage
+        navigate('/'); // Navigate back to homepage
     };
 
     const handleImageClick = (imageId) => {
-        navigate(`/image/${imageId}`);//navigate to specific image detail page
+        navigate(`/image/${imageId}`);
     };
 
     /**
@@ -66,23 +66,24 @@ function ImageGallery() {
      * @param {number} imageId - The ID of the image to toggle.
      * @param {boolean} isFavorite - Whether the image is already a favorite.
      */
+
     const toggleFavorite = async (imageId, isFavorite) => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
         try {
-            if (isFavorite) {//remove from favorites
+            if (isFavorite) {// Remove from favorites
                 await axios.delete(`http://localhost:5000/api/favorites/${imageId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setFavorites(favorites.filter(favId => favId !== imageId));
             } else {
-                await axios.post(//add to favorites
+                await axios.post(// Add to favorites
                     'http://localhost:5000/api/favorites',
                     { imageId },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
-                setFavorites([...favorites, imageId]);//update state of upload
+                setFavorites([...favorites, imageId]); // Update state of upload
             }
         } catch (error) {
             console.error('Error toggling favorite:', error);
