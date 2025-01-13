@@ -63,12 +63,14 @@ function ImageUploader() {
             setFile(null);
 
             // Reset the imageData state
-            setImageData({
+            setImageData({//metadatas for image
                 Category: '',
                 Species: '',
                 Cellular_Component: '',
                 Biological_Process: '',
                 Shape: '',
+
+
                 Imaging_Modality: '',
                 Description: '',
                 Licensing: '',

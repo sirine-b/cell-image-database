@@ -16,6 +16,7 @@ jest.mock('pg', () => {
 
 const pool = new Pool();
 
+
 // Testing Regirstering User
 describe('POST /api/register', () => {
     beforeEach(() => {
@@ -347,5 +348,29 @@ describe('DELETE /api/favorites/:imageId', () => {
 
         expect(res.statusCode).toEqual(500);
         expect(res.body).toHaveProperty('error', 'Error removing from favorites');
+    });
+});
+
+describe('POST /api/reinitialisetables', () => {
+    it('should reinitialise the database tables successfully', async () => {
+        pool.query.mockResolvedValue({});
+
+        const res = await request(app)
+            .post('/api/reinitialisetables')
+            .send();
+
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('message', 'Database tables reinitialised successfully');
+    });
+
+    it('should return 500 if there is an error reinitialising the tables', async () => {
+        pool.query.mockRejectedValue(new Error('Database error'));
+
+        const res = await request(app)
+            .post('/api/reinitialisetables')
+            .send();
+
+        expect(res.statusCode).toEqual(500);
+        expect(res.body).toHaveProperty('error', 'Error reinitialising database tables');
     });
 });
