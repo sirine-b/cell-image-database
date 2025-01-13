@@ -8,14 +8,17 @@ By centralizing image storage and automating cell counting, the application redu
 
 ## Installation Instructions
 
+### Install Node.js and PostgreSQL
+Install Node from [Node Download](https://nodejs.org/en/download) and add Node to their system environment variables. Download and install PostgreSQL from [PostgreSQL Official Website](https://www.postgresql.org/). Remember your Username and Password when setting up PostgreSQL as it will be required later.
+
 ### Step 1: Clone the Repository
 1. Clone the repository from GitHub:
    ```bash
-   git clone <https://github.com/sirine-b/cell-image-database.git>
+   git clone https://github.com/sirine-b/cell-image-database.git
    ```
 2. Navigate to the cloned repository:
    ```bash
-   cd <path to cell-image-database>
+   cd cell-image-database
    ```
 
 ### Step 2: Frontend Setup
@@ -23,11 +26,7 @@ By centralizing image storage and automating cell counting, the application redu
    ```bash
    cd frontend
    ```
-2. Create a React application:
-   ```bash
-   npx create-react-app .
-   ```
-3. Install the required dependencies:
+2. Install the required dependencies:
    ```bash
    npm install axios react-router-dom redux react-redux
    ```
@@ -63,7 +62,7 @@ By centralizing image storage and automating cell counting, the application redu
 ### Step 4: Cellpose Installation
 You can install Cellpose using native Python if you have **Python 3.8+**.
 
-1. Create a Python virtual environment for Cellpose:
+1. Create a Python virtual environment for Cellpose in backend:
    ```bash
    python3 -m venv cellpose
    ```
@@ -87,15 +86,49 @@ You can install Cellpose using native Python if you have **Python 3.8+**.
    ```
 If you have problems installing or running Cellpose, please visit [Cellpose GitHub](https://github.com/MouseLand/cellpose).
 
-## Running the App
+### Step 5: Run the Application
 
-### Step 1: Connect the PostgreSQL Database:
-   - Ensure your PostgreSQL database is running.
-   - Create a database and note down the login credentials (username and password).
+#### Step 1: Connect the PostgreSQL Database:
+   - Start Intellej, find database, right click to find properties
+   - Fill in the login credentials (username and password), then test connection. If successful, proceed, if not, update any data driver files required.
+   - Paste the following into the PostgreSQL console in IntelliJ to create the tables:
+     ```javascript
+     CREATE DATABASE cell_image_db;
 
-### Step 2: Adjust the Login and Password in `server.js`:
+     \c cell_image_db
+
+     CREATE TABLE users (
+         id SERIAL PRIMARY KEY,
+         username VARCHAR(50) UNIQUE NOT NULL,
+         password VARCHAR(100) NOT NULL
+     );
+
+     CREATE TABLE images (
+         id SERIAL PRIMARY KEY,
+         filepath VARCHAR(255) NOT NULL,
+         Category VARCHAR(255) NOT NULL,
+         Species VARCHAR(255) NOT NULL,
+         Cellular_Component VARCHAR(255) NOT NULL,
+         Biological_Process VARCHAR(255) NOT NULL,
+         Shape VARCHAR(255) NOT NULL,
+         Imaging_Modality VARCHAR(255) NOT NULL,
+         Description VARCHAR(255) NOT NULL,
+         DOI VARCHAR(255) NOT NULL,
+         Number_Cells INT
+     );
+
+     CREATE TABLE favorites (
+         id SERIAL PRIMARY KEY,
+         user_id INTEGER REFERENCES users(id),
+         image_id INTEGER REFERENCES images(id),
+         UNIQUE(user_id, image_id)
+     );
+     ```
+- run the database console code
+
+#### Step 2: Adjust the Login and Password in `server.js`:
    - Open the `server.js` file located in the backend directory.
-   - Modify the database connection settings with your PostgreSQL credentials at 3 places (Cellpose, ImageUpload and count_cells.py):
+   - Modify the database connection settings with your PostgreSQL credentials in server.js and count_cells.py :
      ```javascript
      const pool = new Pool({
        user: 'your-username',
@@ -106,13 +139,10 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
      });
      ```
 
-### Step 3: Run the Server:
-   - In the backend directory, start the server:
-     ```bash
-     node server.js
-     ```
+#### Step 3: Run the Server:
+   - From Intellej, run server.js
 
-### Step 4: Start the Frontend:
+#### Step 4: Start the Frontend:
    - Navigate to the frontend directory:
      ```bash
      cd frontend
@@ -121,7 +151,4 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
      ```bash
      npm start
      ```
-
-### Step 5. Access the Application:
-   - Open your browser and go to `http://localhost:3000`.
    - The application should now be running.
