@@ -11,11 +11,11 @@ By centralizing image storage and automating cell counting, the application redu
 ### Step 1: Clone the Repository
 1. Clone the repository from GitHub:
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/sirine-b/cell-image-database.git>
    ```
 2. Navigate to the cloned repository:
    ```bash
-   cd <repository-name>
+   cd <path to cell-image-database>
    ```
 
 ### Step 2:Frontend Setup
