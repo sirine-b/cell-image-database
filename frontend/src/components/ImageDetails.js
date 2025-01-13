@@ -3,33 +3,34 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ImageDetails.css';
 
+// The ImageDetails component is used to display detailed information about a specific image.
 function ImageDetails() {
-    const { id } = useParams(); // Get the image ID from URL parameters
-    const [imageData, setImageData] = useState(null);
+    const { id } = useParams(); // Extracts the image ID from the URL parameters.
+    const [imageData, setImageData] = useState(null); // Stores the image details fetched from the server.
 
     useEffect(() => {
         const fetchImageDetails = async () => {
             try {
-                console.log('Fetching image details for ID:', id);
+                // Fetches the image details from the backend using the image ID.
                 const response = await axios.get(`http://localhost:5000/api/images/${id}`);
-                console.log('Received image data:', response.data);
-                setImageData(response.data);
+                setImageData(response.data); // Sets the fetched image data to state.
             } catch (error) {
-                console.error('Error fetching image details:', error);
+                console.error('Error fetching image details:', error); // Logs any errors.
             }
         };
 
-        fetchImageDetails();
+        fetchImageDetails(); // Calls the function to fetch image details when the component loads.
     }, [id]);
 
-    if (!imageData) return <div className="loading">Loading...</div>;
+    if (!imageData) return <div className="loading">Loading...</div>; // Displays a loading message until the data is fetched.
 
     return (
         <div className="image-details-container">
-
             <img className="image-display" src={`http://localhost:5000/${imageData.filepath}`} alt={imageData.filename} />
+            {/* Displays the image */}
 
             <div className="image-metadata">
+                {/* Displays metadata about the image, such as category, species, and description */}
                 <p><span className="metadata-label">Category:</span> {imageData.category}</p>
                 <p><span className="metadata-label">Species:</span> {imageData.species}</p>
                 <p><span className="metadata-label">Cellular Component:</span> {imageData.cellular_component}</p>
