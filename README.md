@@ -18,7 +18,7 @@ By centralizing image storage and automating cell counting, the application redu
    cd <path to cell-image-database>
    ```
 
-### Step 2:Frontend Setup
+### Step 2: Frontend Setup
 1. Navigate to the frontend directory:
    ```bash
    cd frontend
@@ -32,7 +32,7 @@ By centralizing image storage and automating cell counting, the application redu
    npm install axios react-router-dom redux react-redux
    ```
 
-### Step 3:Backend Setup
+### Step 3: Backend Setup
 1. Navigate to the backend directory:
    ```bash
    cd Backend
@@ -60,7 +60,7 @@ By centralizing image storage and automating cell counting, the application redu
    pip install psycopg2
    ```
 
-### Step 4:Cellpose Installation
+### Step 4: Cellpose Installation
 You can install Cellpose using native Python if you have **Python 3.8+**.
 
 1. Create a Python virtual environment for Cellpose:
@@ -86,3 +86,42 @@ You can install Cellpose using native Python if you have **Python 3.8+**.
    python -m cellpose
    ```
 If you have problems installing or running Cellpose, please visit [Cellpose GitHub](https://github.com/MouseLand/cellpose).
+
+## Running the App
+
+### Step 1: Connect the PostgreSQL Database:
+   - Ensure your PostgreSQL database is running.
+   - Create a database and note down the login credentials (username and password).
+
+### Step 2: Adjust the Login and Password in `server.js`:
+   - Open the `server.js` file located in the backend directory.
+   - Modify the database connection settings with your PostgreSQL credentials at 3 places (Cellpose, ImageUpload and count_cells.py):
+     ```javascript
+     const pool = new Pool({
+       user: 'your-username',
+       host: 'localhost',
+       database: 'your-database-name',
+       password: 'your-password',
+       port: 5432,
+     });
+     ```
+
+### Step 3: Run the Server:
+   - In the backend directory, start the server:
+     ```bash
+     node server.js
+     ```
+
+### Step 4: Start the Frontend:
+   - Navigate to the frontend directory:
+     ```bash
+     cd frontend
+     ```
+   - Start the React application:
+     ```bash
+     npm start
+     ```
+
+### Step 5. Access the Application:
+   - Open your browser and go to `http://localhost:3000`.
+   - The application should now be running.
