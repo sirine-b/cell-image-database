@@ -5,11 +5,17 @@ import './ImageGallery.css';
 import './MainPage.css';
 
 function ImageGallery() {
-    const [images, setImages] = useState([]);
-    const [user, setUser] = useState(null);
-    const [favorites, setFavorites] = useState([]);
-    const navigate = useNavigate();
+// State variables to store images, user data, and favorite images
+    const [images, setImages] = useState([]); // Stores the list of images fetched from the server
+    const [user, setUser] = useState(null); // Stores the currently logged-in user's information
+    const [favorites, setFavorites] = useState([]); // Stores the IDs of images marked as favorites
+    const navigate = useNavigate(); // Hook for navigation between pages
 
+    /**
+     * Fetches images and user data when the component mounts.
+     * - Fetches all images from the backend and updates the `images` state.
+     * - If the user is logged in (based on a token in localStorage), fetches user details and their favorite images.
+     */
     useEffect(() => {
         const fetchImages = async () => {
             try {
@@ -31,10 +37,10 @@ function ImageGallery() {
                     const favoritesResponse = await axios.get('http://localhost:5000/api/favorites', {
                         headers: { Authorization: `Bearer ${token}` },
                     });
-                    setFavorites(favoritesResponse.data.map(fav => fav.id));
+                    setFavorites(favoritesResponse.data.map(fav => fav.id));// Extract and store favorite image ID
                 }
             } catch (error) {
-                console.error('Error fetching user or favorites:', error);
+                console.error('Error fetching user or favorites:', error);//catch errors
                 setUser(null);
             }
         };
@@ -46,30 +52,37 @@ function ImageGallery() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUser(null);
-        navigate('/');
+        navigate('/');//navigate back to homepage
     };
 
     const handleImageClick = (imageId) => {
-        navigate(`/image/${imageId}`);
+        navigate(`/image/${imageId}`);//navigate to specific image detail page
     };
 
+    /**
+     * Adds or removes an image from the user's favorites:
+     * - If already a favorite, removes it from favorites.
+     * - Otherwise, adds it to the favorites.
+     * @param {number} imageId - The ID of the image to toggle.
+     * @param {boolean} isFavorite - Whether the image is already a favorite.
+     */
     const toggleFavorite = async (imageId, isFavorite) => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
         try {
-            if (isFavorite) {
+            if (isFavorite) {//remove from favorites
                 await axios.delete(`http://localhost:5000/api/favorites/${imageId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setFavorites(favorites.filter(favId => favId !== imageId));
             } else {
-                await axios.post(
+                await axios.post(//add to favorites
                     'http://localhost:5000/api/favorites',
                     { imageId },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
-                setFavorites([...favorites, imageId]);
+                setFavorites([...favorites, imageId]);//update state of upload
             }
         } catch (error) {
             console.error('Error toggling favorite:', error);
@@ -86,7 +99,8 @@ function ImageGallery() {
             <div className="button-container">
                 {user ? (
                     <>
-                        <button className="nav-button" onClick={() => navigate('/upload')}>Upload</button>
+                        <button className="nav-button" onClick={() => navigate('/upload')}>Upload </button>
+                        <button className="nav-button" onClick={() => navigate('/cellpose')}>Count Cells</button>
                         <button className="nav-button" onClick={() => navigate('/favorites')}>Favorites</button>
                         <button className="nav-button" onClick={handleLogout}>Logout</button>
                     </>
@@ -95,6 +109,7 @@ function ImageGallery() {
                         <Link to="/login" className="nav-button">Login</Link>
                         <Link to="/register" className="nav-button">Register</Link>
                         <Link to="/upload" className="nav-button">Upload</Link>
+                        <Link to="/cellpose" className="nav-button">Count Cells</Link>
                     </>
                 )}
             </div>
