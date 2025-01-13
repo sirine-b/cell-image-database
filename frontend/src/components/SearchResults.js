@@ -16,7 +16,7 @@ const SearchResults = () => {
 
         const fetchData = async () => {
             try {
-                // Fetch search results from the backend based on query and filter
+                // Fetch search results from the backend based on query and filter 
                 const response = await axios.get(`http://localhost:5000/api/search?query=${query}&filter=${filter}`);
                 setImages(response.data);
 

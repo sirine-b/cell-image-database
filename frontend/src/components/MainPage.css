@@ -27,7 +27,7 @@
     color: #BBCD86;
 }
 
-/* Styles the logout button with a green background, rounded corners, and hover effects. */
+/* Styles the logout button with a green background, rounded corners, and hover effects */
 .logout-button {
     background-color: #BBCD86;
     color: white;
@@ -68,7 +68,7 @@
     padding: 1rem;
 }
 
-/* Styles the search input box with rounded corners, and hover effects. */
+/* Styles the search input box with rounded corners, and hover effects */
 .search-bar input {
     width: 400px;
     padding: 0.8rem 1.2rem;
@@ -78,13 +78,13 @@
     transition: border-color 0.3s;
 }
 
-/* Changes the border color of the input box when focused. */
+/* Changes the border color of the input box when focused */
 .search-bar input:focus {
     outline: none;
     border-color: #BBCD86;
 }
 
-/* Styles the dropdown menu with a clean white background and rounded corners. */
+/* Styles the dropdown menu with a clean white background and rounded corners */
 .search-bar select {
     padding: 0.8rem 1.2rem;
     border: 2px solid #E6E6FA;
@@ -94,7 +94,7 @@
     cursor: pointer;
 }
 
-/* Styles the search button with a green background, white text, and hover effects. */
+/* Styles the search button with a green background, white text, and hover effects */
 .search-bar button {
     padding: 0.8rem 1.5rem;
     background-color: #BBCD86;
@@ -106,7 +106,7 @@
     transition: background-color 0.3s;
 }
 
-/* Ensures the hover effect keeps the same color for consistency. */
+/* Ensures the hover effect keeps the same color for consistency */
 .search-bar button:hover {
     background-color: #BBCD86;
 }

@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'; // Import useNaviga
 import axios from 'axios'; // Import axios for making HTTP requests
 import './ImageGallery.css' // Import the CSS file for styling this component
 
-// FavoritesPage component handles displaying the user's favorite images and allowing interactions with them.
+// FavoritesPage component handles displaying the user's favorite images and allowing interactions with them
 const FavoritesPage = () => {
-    const [favorites, setFavorites] = useState([]); // Store the list of favorite images.
+    const [favorites, setFavorites] = useState([]); // Store the list of favorite images
     const navigate = useNavigate();
 
 

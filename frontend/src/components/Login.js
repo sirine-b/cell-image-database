@@ -1,24 +1,24 @@
-import React, { useState } from 'react'; // Import React and the useState hook to manage component state.
-import axios from 'axios'; // Import axios for making HTTP requests.
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirecting users after login.
-import './Login.css'; // Import the CSS file for styling the Login component.
+import React, { useState } from 'react'; // Import React and the useState hook to manage component state
+import axios from 'axios'; // Import axios for making HTTP requests
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirecting users after login
+import './Login.css'; // Import the CSS file for styling the Login component
 
 // Main Login Component
 function Login() {
-    const [username, setUsername] = useState(''); // State for username input.
-    const [password, setPassword] = useState(''); // State for password input.
-    const [error, setError] = useState(''); // State to store error messages.
-    const navigate = useNavigate(); // Hook for navigation.
+    const [username, setUsername] = useState(''); // State for username input
+    const [password, setPassword] = useState(''); // State for password input
+    const [error, setError] = useState(''); // State to store error messages
+    const navigate = useNavigate(); // Hook for navigation
 
     // Handles the login form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission.
-        setError(''); // Clear previous errors.
+        e.preventDefault(); // Prevent default form submission
+        setError(''); // Clear previous errors
         try {
             // Send login request to the server
             const response = await axios.post('http://localhost:5000/api/login', { username, password });
-            localStorage.setItem('token', response.data.token); // Save token to local storage.
-            navigate('/'); // Redirect to the main page after login.
+            localStorage.setItem('token', response.data.token); // Save token to local storage
+            navigate('/'); // Redirect to the main page after login
         } catch (error) {
             // Display error if login fails
             setError(error.response?.data?.error || 'An error occurred during login');
