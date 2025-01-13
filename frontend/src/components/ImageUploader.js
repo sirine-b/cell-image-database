@@ -17,7 +17,7 @@ function ImageUploader() {
         Shape: '',
         Imaging_Modality: '',
         Description: '',
-        Licensing: '',
+        DOI: '',
     });
     /**
      * Updates the `file` state when a user selects an image.
@@ -73,7 +73,7 @@ function ImageUploader() {
 
                 Imaging_Modality: '',
                 Description: '',
-                Licensing: '',
+                DOI: '',
             });
 
             // Clear the file input
