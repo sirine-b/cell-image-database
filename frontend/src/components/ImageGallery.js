@@ -12,7 +12,7 @@ function ImageGallery() {
     const navigate = useNavigate(); // Hook for navigation between pages
 
     /**
-     * Fetches images and user data when the component mounts.
+     * Fetches images and user data when the component mounts
      * - Fetches all images from the backend and updates the `images` state.
      * - If the user is logged in (based on a token in localStorage), fetches user details and their favorite images.
      */
