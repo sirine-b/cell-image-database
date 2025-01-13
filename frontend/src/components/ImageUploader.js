@@ -7,6 +7,7 @@ import './ImageUploader.css';
  * - Allows users to upload an image along with associated metadata.
  * - Sends the image and metadata to a backend API for storage.
  */
+
 function ImageUploader() {
     const [file, setFile] = useState(null);
     const [imageData, setImageData] = useState({
@@ -19,10 +20,15 @@ function ImageUploader() {
         Description: '',
         DOI: '',
     });
+
     /**
      * Updates the `file` state when a user selects an image.
      * @param {Event} e - The file input change event
      */
+
+    const [uploadProgress, setUploadProgress] = useState(0); // Track upload progress
+    const [isUploading, setIsUploading] = useState(false); // Track if uploading
+
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
@@ -45,17 +51,27 @@ function ImageUploader() {
      * - Sends the data to the backend API for uploading.
      * - Resets the form and provides feedback to the user.
      */
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();// Create a FormData object to handle file and metadata
+        const formData = new FormData(); // Create a FormData object to handle file and metadata
         formData.append('image', file);
         Object.keys(imageData).forEach(key => {
             formData.append(key, imageData[key]);
         });
 
+        setIsUploading(true); // Start uploading
+        setUploadProgress(0); // Reset progress bar
+
         try {
             await axios.post('http://localhost:5000/api/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.total) {
+                        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setUploadProgress(progress);
+                    }
+                }
             });
             alert('Image uploaded successfully');
 
@@ -63,14 +79,13 @@ function ImageUploader() {
             setFile(null);
 
             // Reset the imageData state
-            setImageData({//metadatas for image
+            setImageData({
+                // metadata for image
                 Category: '',
                 Species: '',
                 Cellular_Component: '',
                 Biological_Process: '',
                 Shape: '',
-
-
                 Imaging_Modality: '',
                 Description: '',
                 DOI: '',
@@ -82,6 +97,8 @@ function ImageUploader() {
         } catch (error) {
             console.error('Upload error', error);
             alert('Upload failed');
+        } finally {
+            setIsUploading(false);
         }
     };
 
@@ -101,6 +118,9 @@ function ImageUploader() {
                         required
                         className="file-input"
                     />
+                    {file && (
+                        <p>Selected Image: {file.name}</p> // Display the selected file name
+                    )}
                 </div>
 
                 {Object.keys(imageData).map(key => (
@@ -118,7 +138,9 @@ function ImageUploader() {
                     </div>
                 ))}
 
-                <button type="submit" className="submit-button">Upload Image</button>
+                <button type="submit" className="submit-button" disabled={isUploading}>
+                    {isUploading ? 'Uploading...' : 'Upload Image'}
+                </button>
             </form>
         </div>
     );
