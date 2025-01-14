@@ -9,7 +9,8 @@ By centralizing image storage and automating cell counting, the application redu
 ## Installation Instructions
 
 ### Install Node.js and PostgreSQL
-Install Node from [Node Download](https://nodejs.org/en/download) and add Node to their system environment variables. Download and install PostgreSQL from [PostgreSQL Official Website](https://www.postgresql.org/). Remember your Username and Password when setting up PostgreSQL as it will be required later.
+1. Install Node from [Node Download](https://nodejs.org/en/download) and add the path to Node.js to your system environment variables.
+2. Download and install PostgreSQL from [PostgreSQL Official Website](https://www.postgresql.org/). Remember your Username and Password when setting up PostgreSQL as it will be required later.
 
 ### Step 1: Clone the Repository
 1. Clone the repository from GitHub:
@@ -147,3 +148,8 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
      npm start
      ```
    - The application should now be running.
+
+     Below is a demo of the app running:
+https://github.com/user-attachments/assets/1d7ab15c-8fe7-4945-b962-5e657556be01
+
+
