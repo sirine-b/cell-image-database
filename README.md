@@ -150,6 +150,7 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
    - The application should now be running.
 
      Below is a demo of the app running:
-https://github.com/user-attachments/assets/1d7ab15c-8fe7-4945-b962-5e657556be01
+[![Video Title](https://img.youtube.com/vi/lljEYrZ-GXw/0.jpg)](https://www.youtube.com/watch?v=lljEYrZ-GXw)
+
 
 
