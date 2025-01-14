@@ -149,8 +149,9 @@ If you have problems installing or running Cellpose, please visit [Cellpose GitH
      ```
    - The application should now be running.
 
-     Below is a demo of the app running:
-[![Video Title](https://img.youtube.com/vi/lljEYrZ-GXw/0.jpg)](https://www.youtube.com/watch?v=lljEYrZ-GXw)
+
+     Click on the image below to watch a demo of the app running!
+[![Video Title](https://github.com/sirine-b/cell-image-database/blob/master/frontend/src/logo2.png)](https://www.youtube.com/watch?v=lljEYrZ-GXw)
 
 
 
